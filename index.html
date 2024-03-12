@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+  min-width: 250px;
+}
+.todo-container {
+  background-color:green;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.header {
+  background-color:green;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.header input[type=text] {
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  width: 70%;
+  margin-right: 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.addBtn {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.addBtn:hover {
+  background-color: #555;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+}
+
+#myUL li {
+  padding: 10px;
+  background-color: #fff;
+  margin-top: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+ul li:hover {
+  background: #ddd;
+}
+
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: green;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.header {
+  background-color: #f44336;
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+input {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+.orange-box {
+  background-color: #f44336;
+  height: 39px;
+  width: 100%;
+  padding: 0;
+  display: inline-block;
+}
+
+.remove-btn {
+  padding: 10px;
+  background: #d9d9d9;
+  color: #555;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;
+  margin: 10px auto;
+
+}
+.remove-btn:hover {
+  background-color: #bbb;
+}
+
+.remove-btn:hover {
+  background-color: #d32f2f;
+}
+
+
+
+    /* Styling the button */
+    .btn {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animation effect */
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.6s ease;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .btn:hover::before {
+      width: 0;
+      height: 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="todo-container">
+  <h2 style="margin:5px" align="center">WelCome </h2>
+  <div class="header">
+    <h2 style="margin:5px" 'font-size:100px;'>&#128203;To-do List</h2>
+    <input type="text" id="myInput" placeholder="">
+    <span onclick="newElement()" class="addBtn">Add</span>
+
+  </div>
+
+  <ul id="myUL">
+    
+  </ul>
+  <div id="listItemCount" style="text-align: center; margin-top: 10px;"></div>
+  <button class="remove-btn" onclick="removeListItem()">Remove</button>
+  <div class="orange-box">
+    <p align="center"> ©2024createby-surajgujar48</p>
+  </div>
+
+
+<script>
+
+function updateListItemCount() {
+  var listItems = document.getElementById("myUL").getElementsByTagName("li");
+  var count = listItems.length;
+  document.getElementById("listItemCount").textContent = "Number of list items: " + count;
+  document.getElementById("myInput").setAttribute("placeholder", count > 0 ? "Add another item..." : "Add a new item...");
+  // Toggle visibility of the remove button based on the number of items
+  var removeButton = document.querySelector(".remove-btn");
+  removeButton.style.display = count > 0 ? "block" : "none";
+}
+
+updateListItemCount();
+
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+    updateListItemCount();
+  }
+}
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+    updateListItemCount();
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  function handleCloseClick() {
+  var div = this.parentElement;
+  div.style.display = "none"; // Hide the parent li element
+  div.parentNode.removeChild(div); // Remove the parent li element from the DOM
+  updateListItemCount(); // Update the item count
+}
+
+// Add event listeners to all elements with the .close class
+var closeButtons = document.querySelectorAll('.close');
+closeButtons.forEach(function(button) {
+  button.addEventListener('click', handleCloseClick);
+});
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+      updateListItemCount();
+    }
+  }
+}
+
+function removeListItem() {
+  var listItems = document.getElementById("myUL").getElementsByTagName("li");
+  if (listItems.length > 0) {
+    var lastItem = listItems[listItems.length - 1];
+    lastItem.parentNode.removeChild(lastItem);
+    updateListItemCount();
+  }
+}
+
+
+</script>
+
+</body>
+</html>
